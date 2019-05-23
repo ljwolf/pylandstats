@@ -11,6 +11,7 @@ from shapely import geometry
 import pylandstats as pls
 
 plt.switch_backend('agg')  # only for testing purposes
+CRS = '+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs'
 
 
 class TestImports(unittest.TestCase):
@@ -533,7 +534,7 @@ class TestGradientAnalysis(unittest.TestCase):
         self.landscape_crs = {'init': 'epsg:3035'}
         # for buffer analysis
         self.geom = geometry.Point(6.6327025, 46.5218269)
-        self.geom_crs = {'init': 'epsg:4326'}
+        self.geom_crs = CRS
         self.buffer_dists = [10000, 15000, 20000]
 
     def test_gradient_init(self):
@@ -669,7 +670,7 @@ class TestSpatioTemporalBufferAnalysis(unittest.TestCase):
         ]
         self.dates = [2006, 2012]
         self.base_mask = gpd.GeoSeries([geometry.Point(6.6327025, 46.5218269)],
-                                       crs={'init': 'epsg:4326'})
+                                       crs=CRS)
         self.buffer_dists = [10000, 15000, 20000]
 
     def test_spatiotemporalbufferanalysis_init(self):
